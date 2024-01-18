@@ -1,0 +1,115 @@
+
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  background-image:url("images/bg2.jpg") ;
+  background-size: cover;
+}
+.image-upload>input {
+  display: none;
+}
+label{
+  color:#fff;
+}
+.box{
+  background-color: #E1E3E1;
+  margin-top: 10px;
+  border-radius: 20px;
+}
+.filename p{
+ 
+  height: 10px;
+  padding: 5px 20px;
+
+ 
+}
+.img-box img{
+  height: 219px;
+  width: 259px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+ 
+
+}
+
+.details{
+  display: flex;
+  justify-content: space-between;
+  padding:0px 12px;
+}
+.filterSec{
+  display: flex;
+  justify-content: end;
+  margin: 10px;
+  
+}
+ .date{
+  padding: 10px;
+ }
+
+ .size{
+  padding: 10px;
+ }
+
+ .name{
+  padding: 10px;
+ }
+
+ input,select{
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 0px 10px;
+  width: 200px;
+ }
+
+ .upload{
+  text-align: center;
+  
+ 
+ }
+ .center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  
+  
+ }
+ .center button{
+  padding: 5px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color:#a881af ;
+  color: #fff;
+ }
+@media only screen and (max-width: 660px) {
+  .filterSec{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin: 10px;
+   }
+}
+
+
+
+@media only screen and (max-width: 577px) and (min-width:300px) {
+ .box{
+   width: 50%;
+   
+   display: flex;
+ margin: auto;
+ margin-top: 20px;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+ }
+}
