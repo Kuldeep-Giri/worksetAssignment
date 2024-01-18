@@ -32,7 +32,15 @@ const ImageList = () => {
         fetchImages();
       }, [selectedDate, filenameFilter,selectedSize]);
     
-      
+      const downloadFile = (filename) => {
+        // Trigger download for the file
+        const link = document.createElement('a');
+        link.href = `http://localhost:5000/uploads/${filename}`;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
   return (
     <>
 
@@ -99,7 +107,7 @@ const ImageList = () => {
               }
 
               return true;
-            }).map(({filename,id,date,size})=>{
+            }).map(({filename,id,date,size,filetype})=>{
             return(
                 <div className="col-sm-6 col-md-4 col-lg-3" key={id}>
                 <div className="box">
@@ -107,7 +115,29 @@ const ImageList = () => {
                 <p>{filename.substring(0,16)}</p>
             </div>
             <div className="img-box">
-            <img src={`http://localhost:5000/uploads/${filename}`} alt="" className="img-fluid img-set" />
+          
+            {filetype === 'Image' && (
+                <><img src={`http://localhost:5000/uploads/${filename}`} alt="" className="img-fluid img-set" />
+                 <div className='d-flex justify-content-end ' style={{padding:"0px 10px"}}>
+                <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download</button></div></>
+              )}
+              <div className='d-flex justify-content-end ' style={{padding:"0px 10px"}}>
+              {filetype === 'Text' && (
+                  <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download {filetype} file</button>
+                
+              )}
+              </div>
+
+              <div className='d-flex justify-content-end ' style={{padding:"0px 10px"}}>
+              {filetype === 'Excel' && (
+                  <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download {filetype} file</button>
+                
+              )}
+               {filetype === 'Executable' && (
+                  <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download {filetype} file</button>
+                
+              )}
+              </div>
             </div>
             <div className="details">
             <p>{moment(date).format("MMM Do YY")}</p>

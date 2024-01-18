@@ -90,6 +90,14 @@ label{
   background-color:#a881af ;
   color: #fff;
  }
+
+ .downloadBtn{
+  background-color: #a881af ;
+  border: none;
+  border-radius: 5px;
+  padding: 1px 5px;
+  color: white;
+ }
 @media only screen and (max-width: 660px) {
   .filterSec{
     display: flex;

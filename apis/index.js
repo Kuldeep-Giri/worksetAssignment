@@ -38,8 +38,9 @@ db.connect(err => {
 //routes
 app.post('/upload', upload.single('image'), (req, res) => {
   const { filename, size, date } = req.file;
-  const sql = 'INSERT INTO posts (filename, size) VALUES (?, ?)';
-  db.query(sql, [filename, size], (err, result) => {
+  const {  filetype } = req.body;
+  const sql = 'INSERT INTO posts (filename, size,filetype) VALUES (?, ?,?)';
+  db.query(sql, [filename, size,filetype], (err, result) => {
     if (err) {
       console.error( err);
       return res.status(500).send('Internal Server Error');

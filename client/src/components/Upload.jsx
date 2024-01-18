@@ -3,14 +3,21 @@ import axios from 'axios'
 
 const Upload = ({fetchImages}) => {
     const [file, setFile] = useState(null);
+    const [filetype, setFileType] = useState('');
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+
+  const handleFileTypeChange = (e) => {
+    setFileType(e.target.value);
+  };
+
 
     const handleUpload = async (e) => {
         e.preventDefault()
         const formData = new FormData();
         formData.append('image', file);
+        formData.append('filetype', filetype);
     
         try {
           await axios.post('http://localhost:5000/upload', formData, {
@@ -42,6 +49,14 @@ const Upload = ({fetchImages}) => {
   </label>
  
   <input id="file-input" type="file"  onChange={handleFileChange}/>
+  <select onChange={handleFileTypeChange}>
+        <option value="">Select File Type</option>
+        <option value="Text">Text</option>
+        <option value="Excel">Excel</option>
+        <option value="Executable">Exe</option>
+        <option value="Image">Image</option>
+        
+      </select>
   {file ? file.name : ""}
 </div>
      </div>
