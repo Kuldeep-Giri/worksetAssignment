@@ -50,7 +50,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
 });
 
 app.get('/allData', (req, res) => {
-  const sql = 'SELECT * FROM posts ORDER BY id DESC';
+  const sql = 'SELECT * FROM posts ORDER BY filename';
   db.query(sql, (err, result) => {
     if (err) {
       console.error(err);

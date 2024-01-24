@@ -1,4 +1,10 @@
-
+:root {
+  --size: 25;
+  --color-one: #a881af;
+  --color-two: #a881af;
+  --color-three: #a881af;
+  --color-four: #a881af;
+}
 
 
 *{
@@ -30,7 +36,7 @@ label{
 }
 .img-box img{
   height: 219px;
-  width: 259px;
+  width: 309px;
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -120,4 +126,59 @@ label{
    justify-content: center;
    align-items: center;
  }
+}
+
+
+
+/* Spinner code */
+
+@property --nose {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+@property --tail {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+.loader {
+  height: calc(var(--size) * 1vmin);
+  width: calc(var(--size) * 1vmin);
+  border-radius: 50%;
+  mask: conic-gradient(
+    from 45deg,
+    transparent 0 var(--tail),
+    #000 0 var(--nose),
+    transparent 0 var(--nose)
+  );
+  border-style: solid;
+  border-width: 5vmin;
+  border-top-color: var(--color-one);
+  border-right-color: var(--color-two);
+  border-bottom-color: var(--color-three);
+  border-left-color: var(--color-four);
+  animation: load 2.5s both infinite ease-in-out, spin 3.25s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  0% {
+    --tail: 0%;
+    --nose: 0%;
+  }
+  40%,
+  60% {
+    --nose: 100%;
+    --tail: 0%;
+  }
+  100% {
+    --nose: 100%;
+    --tail: 100%;
+  }
 }

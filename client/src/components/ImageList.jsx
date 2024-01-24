@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import moment from "moment"
 import axios from 'axios'
 import Upload from './Upload';
+import Spinner from './Spinner';
 
 const ImageList = () => {
     const size = ['Small', 'Medium', 'Large'];
@@ -9,22 +10,25 @@ const ImageList = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [filenameFilter, setFilenameFilter] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
+    const [loading,setLoading] = useState(false);
     
     const fetchImages = async () => {
         try {
-       
+         setLoading(true)
           const {data} = await axios.get('http://localhost:5000/allData');
-          const sort = data.sort((a, b) => {
-            const dateComparison = new Date(b.date) - new Date(a.date);
-            if (dateComparison !== 0) {
-              return dateComparison;
-            }
-            return a.filename.localeCompare(b.filename);
-          });
-          setImages(sort)
+          // const sort = data.sort((a, b) => {
+          //   const dateComparison = new Date(b.date) - new Date(a.date);
+          //   if (dateComparison !== 0) {
+          //     return dateComparison;
+          //   }
+          //   return a.filename.localeCompare(b.filename);
+          // });
+          setImages(data)
+          setLoading(false)
          
         } catch (error) {
           console.error('Error fetching images: ' + error.message);
+          setLoading(false)
          
         }
       };
@@ -33,7 +37,6 @@ const ImageList = () => {
       }, [selectedDate, filenameFilter,selectedSize]);
     
       const downloadFile = (filename) => {
-        // Trigger download for the file
         const link = document.createElement('a');
         link.href = `http://localhost:5000/uploads/${filename}`;
         link.download = filename;
@@ -48,6 +51,7 @@ const ImageList = () => {
 <div className="container">
 
   <Upload fetchImages={fetchImages}/>
+ 
 <div className='filterSec'>
         
         <div className="name">
@@ -75,6 +79,7 @@ const ImageList = () => {
       </div>
 
     <div className="row">
+    {loading && <Spinner/>}
       {
         images.filter((image) => {
             if (selectedDate && new Date(image.date).toISOString().split('T')[0] !== selectedDate) {
@@ -117,24 +122,44 @@ const ImageList = () => {
             <div className="img-box">
           
             {filetype === 'Image' && (
-                <><img src={`http://localhost:5000/uploads/${filename}`} alt="" className="img-fluid img-set" />
-                 <div className='d-flex justify-content-end ' style={{padding:"0px 10px"}}>
-                <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download</button></div></>
+                <div>
+                  <img src={`http://localhost:5000/uploads/${filename}`} alt="" className="img-fluid img-set" />
+                 <div className='d-flex justify-content-end mx-2'>
+                <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download</button></div>
+                </div>
               )}
               <div className='d-flex justify-content-end ' style={{padding:"0px 10px"}}>
               {filetype === 'Text' && (
-                  <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download {filetype} file</button>
+              
+              <div>
+               <img src="images/txt.png" alt="" className="img-fluid img-set" />
+             <div className='d-flex justify-content-end '>
+            <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download</button></div>
+            </div>
                 
               )}
               </div>
 
               <div className='d-flex justify-content-end ' style={{padding:"0px 10px"}}>
               {filetype === 'Excel' && (
-                  <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download {filetype} file</button>
+              
+              <div>
+               <img src="images/excel.JPG" alt="" className="img-fluid img-set" />
+             <div className='d-flex justify-content-end '>
+            <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download</button></div>
+            </div>
                 
               )}
-               {filetype === 'Executable' && (
-                  <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download {filetype} file</button>
+              </div>
+
+              <div className='d-flex justify-content-end ' style={{padding:"0px 10px"}}>
+              {filetype === 'Executable' && (
+              
+              <div>
+               <img src="images/exe.JPG" alt="" className="img-fluid img-set" />
+             <div className='d-flex justify-content-end '>
+            <button className='mb-2 mt-2 downloadBtn'  onClick={() => downloadFile(filename)}>Download</button></div>
+            </div>
                 
               )}
               </div>
